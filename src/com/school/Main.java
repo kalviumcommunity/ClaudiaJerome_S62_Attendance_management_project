@@ -64,30 +64,57 @@ public class Main {
             new Staff(null, null)
     
         };
+
+        List<Student> Student = new ArrayList<>();
+        Student student1 = (Student) person[0];
+        Student student2 = (Student) person[1];
+        Student.add(student1);
+        Student.add(student2);
     
         for(Person p:person){
             p.displayDetails();
         }
 
+        List<Course> Courses = new ArrayList<>();
         Course course1=new Course("Intro to Quantum Physics");
-        System.err.println("\nAvailable course");
-        course1.displayDetails();
+        Course course2=new Course("Advanced ALgorithms");
+        Courses.add(course1);
+        Courses.add(course2);
+        // System.err.println("\nAvailable course");
+        // course1.displayDetails();
 
         List<AttendanceRecord> attendanceLog = new ArrayList<>();
-        String[] status={"Present","Daydreaming"};
 
-        for(int i=0;i<2;i++){
-            Student student=(Student) person[i];
-            AttendanceRecord record=new AttendanceRecord(student.getId(),course1.getCourseId(),status[i]);
-            attendanceLog.add(record);
-        }
+        AttendanceRecord record1=new AttendanceRecord(person[0].getId(),course1.getCourseId(),"Present");
+        AttendanceRecord record2=new AttendanceRecord(person[1].getId(),course2.getCourseId(),"Absent");
+        AttendanceRecord record3=new AttendanceRecord(person[1].getId(),course2.getCourseId(),"Present");
+        attendanceLog.add(record1);
+        attendanceLog.add(record2);
+        attendanceLog.add(record3);
 
-        System.err.println("Attendance log----");
+        // String[] status={"Present","Daydreaming"};
 
-        for(AttendanceRecord record:attendanceLog){
-            record.displayDetails();
-        }
+        // for(int i=0;i<2;i++){
+        //     Student student=(Student) person[i];
+        //     AttendanceRecord record=new AttendanceRecord(student.getId(),course1.getCourseId(),status[i]);
+        //     attendanceLog.add(record);
+        // }
 
-        System.err.println("Session 5: Inheritance Hierarchy Established Complete. ");
+        // System.err.println("Attendance log----");
+
+        // for(AttendanceRecord record:attendanceLog){
+        //     record.displayDetails();
+        // }
+
+        // System.err.println("Session 5: Inheritance Hierarchy Established Complete. ");
+
+        FileStorageService storageService = new FileStorageService();
+
+        storageService.saveData(Student, "students.txt");
+        storageService.saveData(Courses, "courses.txt");
+        storageService.saveData(attendanceLog, "Attendance-log.txt");
+
+        System.out.println("Interface-Driven Persistance (Saving) completed.");
+        
     };
 }
